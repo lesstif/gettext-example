@@ -2,18 +2,24 @@ INC_DIR=include
 CC=gcc
 CFLAGS=-I$(INC_DIR)
 
-OBJ_DIR=obj
-LIB_DIR=lib
+SRCS=hello.c
+OBJS=$(SRCS:.o=.c)
 
 LIBS=-lm
 
-$(OBJ_DIR)/%.o: %.c $(DEPS)
+POT=hello.pot
+
+%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-hello: $(OBJ)
+hello: $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 
 clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ 
+	rm -f *.o *~ core *~ a.out hello
+
+hello.pot: $(SRCS)
+	xgettext -c $(SRCS) -o $(POT)
+
