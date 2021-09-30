@@ -3,6 +3,8 @@ CC=gcc
 CFLAGS=-I$(INC_DIR)
 
 SRCS=hello.c
+HEADERS=hello.h
+
 OBJS=$(SRCS:.o=.c)
 
 LIBS=-lm
@@ -20,6 +22,6 @@ hello: $(OBJS)
 clean:
 	rm -f *.o *~ core *~ a.out hello
 
-hello.pot: $(SRCS)
-	xgettext -c $(SRCS) -o $(POT)
+hello.pot: $(SRCS) $(HEADERS)
+	xgettext -c $(SRCS) $(HEADERS) -o $(POT)
 
